@@ -5,10 +5,12 @@ description = "Awesome project"
 authors = ["Samuel Gonçalves <fg.samuel@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "~3.11"
+python = "~3.10"
 Django = "4.2.3"
 python-decouple = "^3.6"
 dj-database-url = "^1.0.0"
+djangorestframework = "^3.14.0"
+requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
