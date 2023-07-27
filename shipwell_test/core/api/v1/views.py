@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,6 +10,11 @@ from shipwell_test.core.services.weatherdotcom_service import WeatherdotcomServi
 
 
 class TemperatureView(APIView):
+    @swagger_auto_schema(
+        request_body=TemperatureSerializer,
+        operation_summary="Get average temperature from multiple services",
+        operation_description="Get average temperature from multiple services",
+    )
     def post(self, request, *args, **kwargs):
         data = TemperatureSerializer(data=request.data)
         data.is_valid(raise_exception=True)
