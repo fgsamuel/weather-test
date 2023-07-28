@@ -35,13 +35,17 @@ class TemperatureView(APIView):
         results = []
         for service in services:
             service_instance = service_classes[service]()
-            results.append(service_instance.get_weather(**service_data))
+            service_result = service_instance.get_weather(**service_data)
+            results.append((service, service_result))
 
-        valid_results = [float(result) for result in results if result is not None]
+        valid_results = [float(result[1]) for result in results if result[1] is not None]
 
         if valid_results:
             average_temperature = sum(valid_results) / len(valid_results)
         else:
             average_temperature = None
 
-        return Response({"temperature": average_temperature}, status=status.HTTP_200_OK)
+        providers = {result[0]: float(result[1]) for result in results if result[1] is not None}
+        result_data = {"temperature_average": average_temperature, "providers": providers}
+
+        return Response(result_data, status=status.HTTP_200_OK)

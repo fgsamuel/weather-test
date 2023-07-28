@@ -16,7 +16,7 @@ class NoaaService(BaseService):
         try:
             data = response.json()["today"]["current"]
             temperature = data["fahrenheit"]
-            if temp_unit == "C":
+            if temp_unit.lower() == "c":
                 temperature = data["celsius"]
         except Exception as e:
             logger.exception(e)

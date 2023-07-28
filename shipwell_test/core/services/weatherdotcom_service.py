@@ -21,7 +21,7 @@ class WeatherdotcomService(BaseService):
     def _prepare_response(self, response, temp_unit):
         try:
             temperature = response.json()["query"]["results"]["channel"]["condition"]["temp"]
-            if temp_unit == "C":
+            if temp_unit.lower() == "c":
                 temperature = self._convert_f_to_c(temperature)
         except Exception as e:
             logger.exception(e)
@@ -30,5 +30,4 @@ class WeatherdotcomService(BaseService):
 
     @staticmethod
     def _convert_f_to_c(temperature):
-        value = (float(temperature) - 32) * 5 / 9
-        return round(value, 1)
+        return (float(temperature) - 32) * 5 / 9

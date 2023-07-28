@@ -16,7 +16,7 @@ class AccuweatherService(BaseService):
         try:
             data = response.json()["simpleforecast"]["forecastday"][0]["current"]
             temperature = data["fahrenheit"]
-            if temp_unit == "C":
+            if temp_unit.lower() == "c":
                 temperature = data["celsius"]
         except Exception as e:
             logger.exception(e)
