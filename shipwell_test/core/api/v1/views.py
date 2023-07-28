@@ -46,6 +46,10 @@ class TemperatureView(APIView):
             average_temperature = None
 
         providers = {result[0]: float(result[1]) for result in results if result[1] is not None}
-        result_data = {"temperature_average": average_temperature, "providers": providers}
+        result_data = {
+            "temperature_average": average_temperature,
+            "temperature_unit": "celcius" if data.validated_data["temperature_unit"] == "c" else "fahrenheit",
+            "providers": providers
+        }
 
         return Response(result_data, status=status.HTTP_200_OK)
